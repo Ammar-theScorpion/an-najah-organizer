@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "tailwindcss -i an_najah_organizer/static/css/project.css -o an_najah_organizer/static/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
+  }
+}
