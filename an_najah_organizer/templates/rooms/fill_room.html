@@ -1,0 +1,76 @@
+{% extends "_base.html" %}
+{% load crispy_forms_tags %}  {# Load the crispy forms template tags #}
+{% load tailwind_filters %}   {# Load any necessary Tailwind filters #}
+
+{% block content %}
+
+<div class="flex  items-center justify-center flex-col">
+    <div class="w-3/4 bg-white shadow-lg p-9">
+
+        <h3 class="text-xl font-semibold mb-4 self-start">Where Are You At?</h3>
+        
+        <div class="flex flex-wrap justify-center items-center space-x-4 space-y-4">
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    <input type="hidden" name="selected_campus" id="selected-campus" value="">
+
+                    <div class="flex flex-auto bg-cfeBlue-100 flex-wrap space-x-4 space-y-4" id="campus-container">
+                        {% for campus in campuses %}
+                            <div 
+                                class="pointer-events-auto min-w-32 max-sm:w-full rounded-lg bg-white p-4 text-[0.8125rem] leading-5 shadow-xl shadow-black/5 hover:bg-slate-50 ring-2 cursor-pointer transition duration-200 ease-in-out" 
+                                data-id="{{ campus.id }}" 
+                                onclick="selectCampus({{ campus.id }})"
+                                id="campus-{{ campus.id }}">
+
+                                <div class="flex justify-between">
+                                    <div class="font-medium text-slate-900">{{ campus.id }}</div>
+                                    <svg class="h-5 w-5 flex-none hidden" id="icon-{{ campus.id }}" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.707-9.293a1 1 0 0 0-1.414-1.414L9 10.586 7.707 9.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" fill="#4F46E5"></path>
+                                    </svg>
+                                </div>
+                                <div class="mt-1 text-slate-700">{{ campus.name }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {{buildings|crispy}}
+                    {{floor_form|crispy}}
+                    {{room_form|crispy}}
+                    {{detail_form|crispy}}
+
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Submit
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        function selectCampus(campusId) {
+            // Get all campus elements and reset styles
+            const campusElements = document.querySelectorAll('[id^="campus-"]');
+            campusElements.forEach(campus => {
+                campus.classList.remove('ring-indigo-600');  // Remove highlighted border
+                campus.classList.add('ring-gray-300');  // Add default gray border
+            });
+    
+            // Hide all icons
+            const icons = document.querySelectorAll('svg[id^="icon-"]');
+            icons.forEach(icon => icon.classList.add('hidden'));
+    
+            // Highlight the selected campus and show the SVG
+            const selectedCampus = document.getElementById(`campus-${campusId}`);
+            selectedCampus.classList.remove('ring-gray-300');
+            selectedCampus.classList.add('ring-indigo-600');  // Add highlighted border
+    
+            const selectedIcon = document.getElementById(`icon-${campusId}`);
+            selectedIcon.classList.remove('hidden');  // Show the SVG
+    
+            // Update the hidden input with the selected campus ID
+            document.getElementById('selected-campus').value = campusId;
+        }
+    </script>
+{% endblock %}

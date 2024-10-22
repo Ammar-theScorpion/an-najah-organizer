@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="{% static 'css/tailwind.css' %}" rel="stylesheet" /> <!-- Removed the leading slash -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <title>Your Page Title</title> <!-- Add a title for better SEO -->
+    </head>
+    <body>
+        {% block content %}
+            <h1 class="text-3xl font-bold underline hover:bg-slate-900 text-sky-600">Hellfdsfsdfo world!</h1>
+        {% endblock content %}
+    </body>
+</html>

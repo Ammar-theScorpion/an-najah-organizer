@@ -69,6 +69,8 @@ DJANGO_APPS = [
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
+    "crispy_forms",
+    "crispy_tailwind",
 ]
 THIRD_PARTY_APPS = [
     "allauth",
@@ -79,10 +81,15 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "an_najah_organizer.users",
-    # Your stuff: custom apps go here
+    "an_najah_organizer.room",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------

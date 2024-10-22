@@ -2,7 +2,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  content: ["./an_najah_organizer/templates/**/*.{html,js}"],
+  content: ["./an_najah_organizer/templates/**/*.{html,js}", "./an_najah_organizer/templates/rooms/*.{html,js}"],
   theme: {
     colors: {
       white: colors.white,
