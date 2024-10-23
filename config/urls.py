@@ -6,9 +6,10 @@ from django.urls import include
 from django.urls import path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+from an_najah_organizer.room.views import room_table
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    path("", room_table, name="home"),
     path(
         "about/",
         TemplateView.as_view(template_name="pages/about.html"),
@@ -21,8 +22,8 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     # ...
-        ##
-    path("fill/", include("an_najah_organizer.room.urls")),
+    ##
+    path("fill/", include("an_najah_organizer.room.urls", namespace="rooms")),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
