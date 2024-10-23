@@ -7,9 +7,9 @@ from .forms import BuildingForm
 from .forms import FloorForm
 from .forms import RoomForm
 from .forms import RoomDetailsForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-
-
+@login_required
 def create_room_view(request):
     # Initialize the forms
     campuses = Campus.objects.all()
@@ -23,6 +23,7 @@ def create_room_view(request):
         building_form = BuildingForm(request.POST)
         floor_form = FloorForm(request.POST)
         room_form = RoomForm(request.POST)
+        detail_form = RoomDetailsForm(request.POST)
                 
         if building_form.is_valid():
                 building_data = building_form.cleaned_data
@@ -39,12 +40,20 @@ def create_room_view(request):
                         room_instance.campus = selected_campus_id
                         room_instance.building = selected_building
                         room_instance.floor = floor_instance
+                        room_instance.user = request.user
 
-                        floor_form.save()
-                        room_instance.save()
+                        if detail_form.is_valid():
+                            detail_instance = detail_form.save(commit=False)
+                            detail_instance.room = room_instance
 
-                        return redirect(reverse('home'))
+                            floor_form.save()
+                            room_instance.save()
+                            detail_instance.save()
 
+                            return redirect(reverse('home'))
+                        
+                        else:
+                            print("Detail Room form errors:", detail_form.errors)
                     else:
                         print("Room form errors:", room_form.errors)
 

@@ -106,9 +106,16 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
+#LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "account_login"
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT = 'home' #
+ACCOUNT_SESSION_REMEMBER = True 
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False ##
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 # PASSWORDS
 # ------------------------------------------------------------------------------

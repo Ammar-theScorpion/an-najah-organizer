@@ -1,5 +1,8 @@
 from django.db import models
 from utils.g_models import TimeStampModel
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Campus(models.Model):
     id = models.SmallIntegerField(unique=True, null=False, primary_key=True)
@@ -32,6 +35,12 @@ class Room(models.Model):
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
     floor = models.ForeignKey(Floor, on_delete=models.CASCADE)
     room_number = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+    width = models.FloatField(null=False, blank=False)
+    length = models.FloatField(null=False, blank=False)
+    height = models.FloatField(null=False, blank=False)
+    usage = models.CharField(null=False, blank=False, max_length=200)
 
     class Meta:
         unique_together = ('campus', 'building', 'floor', 'room_number')
@@ -40,18 +49,17 @@ class Room(models.Model):
         return f"room number: {self.room_number} in floor: {self.floor}, in building: {self.building}, in campus: {self.campus}"
 
 class RoomDetails(TimeStampModel):
+
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-
-    width = models.FloatField(null=False, blank=False)
-    length = models.FloatField(null=False, blank=False)
-    height = models.FloatField(null=False, blank=False)
-    usage = models.CharField(null=False, blank=False, max_length=200)
     
-    windows = models.SmallIntegerField(null=False, blank=False, default=1)
-    doors = models.SmallIntegerField(null=False, blank=False, default=1)
-    lcd = models.SmallIntegerField(null=False, blank=False, default=1)
-    condition = models.SmallIntegerField(null=False, blank=False, default=1)
-
+    windows = models.SmallIntegerField(null=False, blank=False, default=0)
+    doors = models.SmallIntegerField(null=False, blank=False, default=0)
+    lcd = models.SmallIntegerField(null=False, blank=False, default=0)
+    condition = models.SmallIntegerField(null=False, blank=False, default=0)
 
     def __str__(self) -> str:
         return f"room: {self.room.room_number} is {self.width} wide and {self.height} heigh"
+
+class Media(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="roomImages/", null=True, blank=True)

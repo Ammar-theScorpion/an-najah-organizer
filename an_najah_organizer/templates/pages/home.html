@@ -15,6 +15,10 @@
                     alt=""
                 />
                 </a>
+
+                {% if user.is_authenticated %}
+                    {{user.username}}
+                {% endif %}
             </div>
             <div class="flex lg:hidden">
                 <button
@@ -54,8 +58,16 @@
                 >
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                {% if user.is_authenticated %}
+                <a href="accounts/logout" class="text-sm font-semibold leading-6 text-gray-900"
+                >Log out <span aria-hidden="true">&rarr;</span></a>
+                {% else %}
+                <a href="accounts/signup" class="text-sm font-semibold leading-6 text-gray-900"
+                >Sign up <span aria-hidden="true">&rarr;</span></a>
                 <a href="accounts/login" class="text-sm font-semibold leading-6 text-gray-900"
                 >Log in <span aria-hidden="true">&rarr;</span></a>
+                
+                {% endif %}
             </div>
             </nav>
             <!-- Mobile menu, show/hide based on menu open state. -->

@@ -4,14 +4,182 @@
 
 {% block content %}
 
-<div class="flex  items-center justify-center flex-col">
-    <div class="w-3/4 bg-white shadow-lg p-9">
 
-        <h3 class="text-xl font-semibold mb-4 self-start">Where Are You At?</h3>
-        
-        <div class="flex flex-wrap justify-center items-center space-x-4 space-y-4">
-                <form method="post" class="space-y-4">
+
+<div class="flex  items-center justify-center flex-col rounded-lg">
+    <div class="w-3/4 p-9 m-10 shadow-lg">
+
+        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+            <h1 class="md:w-1/3 w-full text-left">Current User</h1>
+            <div class="items-center justify-center w-3/4 max-md:w-full">
+                {{ user.username }}
+            </div>
+        </div>
+        <div class="flex flex-wrap w-full space-x-4 space-y-4 ">
+                <form method="post" class="space-y-4 w-full" id="room_form">
                     {% csrf_token %}
+
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">Where Are You At?</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ buildings}}
+                        </div>
+                    </div>
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">{{floor_form.floor_number.label}}</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ floor_form.floor_number }}
+                        </div>
+                    </div>
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">{{room_form.room_number.label}}</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ room_form.room_number }}
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5 mb-5">
+                        <hr>
+
+                        <h2 class="pt-10 pb-10"> Room Details</h2>
+                        <hr>
+
+                    </div>
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">Width</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ detail_form.width }}
+                        </div>
+                    </div>
+                
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">Height</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ detail_form.height }}
+                        </div>
+                    </div>
+                
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">Length</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ detail_form.length }}
+                        </div>
+                    </div>
+                
+                    <div class="w-full  md:flex  items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.windows.label}}</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ detail_form.windows }}
+                        </div>
+                    </div>
+                
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.doors.label}}</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ detail_form.doors }}
+                        </div>
+                    </div>
+                
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.lcd.label}}</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ detail_form.lcd }}
+                        </div>
+                    </div>
+                
+                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                        <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.condition.label}}</label>
+                        <div class="items-center justify-center w-3/4 max-md:w-full">
+                            {{ detail_form.condition }}
+                        </div>
+                    </div>
+
+                
+ 
+                    <div class="bg-[#f1f1f1] rounded-lg shadow-lg">
+                        <div class="flex items-center justify-center w-full p-10">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  hover:bg-gray-100 ">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input id="dropzone-file" type="file" class="hidden" />
+                            </label>
+                        </div>
+
+                        <div id="new_images" class="gap-5 flex flex-col items-center justify-center w-full p-10">
+
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        document.getElementById('dropzone-file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+        
+                    const fileContainer = document.createElement('div');
+                    fileContainer.innerHTML = `
+                        <div id=${file.name} class="relative w-full bg-white px-6 pb-8 pt-10 shadow-xl ring-1 ring-gray-900/5 rounded-lg px-10">
+                            <div class="mx-auto flex max-w-md justify-between">
+                                <div class="flex mt-4 max-md:flex-col">
+                                    <img src=${e.target.result} class="bg-slate-300  shadow-2xl w-40 h-40 rounded-md self-center" alt="Tailwind Play" />
+                                    <div class="flex ml-2 max-w-[3/4] flex-col break-all justify-center text-[#323235] leading-6">
+                                        <h1>${file.name}</h1>
+                                        <h1 class="font-mono">${(file.size)/1000000} MB</h1>
+                                    </div>
+                                </div>
+                                <div onclick="deleteImage('${file.name}')" class="absolute right-4 top-4 flex cursor-pointer rounded-full bg-slate-300 p-1 pl-3 pr-3 text-lg transition-all hover:scale-105 hover:text-red-600">X</div>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('new_images').appendChild(fileContainer);
+
+                    // create a new hidden input
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'file';
+                    hiddenInput.name = 'room_image';
+                    hiddenInput.files = file;
+                    hiddenInput.style.display = 'none';
+
+                    document.getElementById('room_form').appendChild(fileContainer);
+
+                }
+                reader.readAsDataURL(file);
+
+            }
+        });
+
+        function deleteImage(imageId){
+            const imageUI = document.getElementById(imageId);
+            if(imageId) {
+                imageUI.remove();
+                const hiddenInput = document.querySelector(`input[name="room_image"][value="${imageId}"]`);
+                if(hiddenInput) {
+                    hiddenInput.remove();
+                }
+            }
+
+        };
+
+    </script>
+{% endblock %}
+
+<!--
                     <input type="hidden" name="selected_campus" id="selected-campus" value="">
 
                     <div class="flex flex-auto bg-cfeBlue-100 flex-wrap space-x-4 space-y-4" id="campus-container">
@@ -31,46 +199,4 @@
                                 <div class="mt-1 text-slate-700">{{ campus.name }}</div>
                             </div>
                         {% endfor %}
-                    </div>
-
-                    {{buildings|crispy}}
-                    {{floor_form|crispy}}
-                    {{room_form|crispy}}
-                    {{detail_form|crispy}}
-
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Submit
-                    </button>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <script>
-        function selectCampus(campusId) {
-            // Get all campus elements and reset styles
-            const campusElements = document.querySelectorAll('[id^="campus-"]');
-            campusElements.forEach(campus => {
-                campus.classList.remove('ring-indigo-600');  // Remove highlighted border
-                campus.classList.add('ring-gray-300');  // Add default gray border
-            });
-    
-            // Hide all icons
-            const icons = document.querySelectorAll('svg[id^="icon-"]');
-            icons.forEach(icon => icon.classList.add('hidden'));
-    
-            // Highlight the selected campus and show the SVG
-            const selectedCampus = document.getElementById(`campus-${campusId}`);
-            selectedCampus.classList.remove('ring-gray-300');
-            selectedCampus.classList.add('ring-indigo-600');  // Add highlighted border
-    
-            const selectedIcon = document.getElementById(`icon-${campusId}`);
-            selectedIcon.classList.remove('hidden');  // Show the SVG
-    
-            // Update the hidden input with the selected campus ID
-            document.getElementById('selected-campus').value = campusId;
-        }
-    </script>
-{% endblock %}
+                    </div>-->
