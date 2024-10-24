@@ -117,7 +117,7 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False  ##
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-
+ACCOUNT_USERNAME_BLACKLIST = ["admin", "map"]
 # PASSWORDS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers

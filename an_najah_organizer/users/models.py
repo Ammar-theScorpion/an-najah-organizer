@@ -1,7 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField
+from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.validators import UnicodeUsernameValidator
+
+
+class Validator(UnicodeUsernameValidator):
+    regex = r"^[\w.@+\- ]+$"
 
 
 class User(AbstractUser):
@@ -11,7 +17,21 @@ class User(AbstractUser):
     check forms.SignupForm and forms.SocialSignupForms accordingly.
     """
 
+    username_validator = Validator()
+
     # First and last name do not cover name patterns around the globe
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        unique=True,
+        help_text=_(
+            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ),
+        validators=[username_validator],
+        error_messages={
+            "unique": _("A user with that username already exists."),
+        },
+    )
     name = CharField(_("Name of User"), blank=True, max_length=255)
     first_name = None  # type: ignore[assignment]
     last_name = None  # type: ignore[assignment]

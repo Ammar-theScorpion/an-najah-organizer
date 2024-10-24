@@ -5,7 +5,7 @@ from .models import Room
 from .models import Building
 from .models import Floor
 from .models import RoomItems
-
+from django.forms import modelformset_factory
 
 """
 
@@ -57,6 +57,8 @@ class RoomForm(ModelForm):
             "height",
             "length",
             "usage",
+            "x",
+            "y",
         ]
         labels = {"room_number": "Room Number", "usage": "Usage"}
         widgets = {
@@ -88,6 +90,18 @@ class RoomForm(ModelForm):
                 attrs={
                     "class": "border rounded px-4 py-2 w-full shadow-md",
                     "placeholder": "Usage",
+                }
+            ),
+            "x": forms.NumberInput(
+                attrs={
+                    "class": "border rounded px-4 py-2 w-full shadow-md",
+                    "placeholder": "X",
+                }
+            ),
+            "y": forms.NumberInput(
+                attrs={
+                    "class": "border rounded px-4 py-2 w-full shadow-md",
+                    "placeholder": "Y",
                 }
             ),
         }
@@ -137,3 +151,12 @@ class RoomDetailsForm(ModelForm):
                 }
             ),
         }
+
+
+RoomDetailsFormSet = modelformset_factory(
+    RoomDetails, form=RoomDetailsForm, extra=1
+)  # extra defines new empty forms
+
+RoomDetailsFormSetUpdate = modelformset_factory(
+    RoomDetails, form=RoomDetailsForm, extra=0
+)  # extra defines new empty forms

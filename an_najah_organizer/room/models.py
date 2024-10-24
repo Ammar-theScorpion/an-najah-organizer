@@ -46,6 +46,9 @@ class Room(TimeStampModel):
     height = models.FloatField(null=False, blank=False)
     usage = models.CharField(null=False, blank=False, max_length=200)
 
+    x = models.FloatField(null=False, blank=False)
+    y = models.FloatField(null=False, blank=False)
+
     class Meta:
         unique_together = ("campus", "building", "floor", "room_number")
 

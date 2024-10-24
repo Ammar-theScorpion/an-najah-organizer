@@ -103,6 +103,8 @@
       map.on('click', function (e) {
         var lat = e.latlng.lat
         var lon = e.latlng.lng
+        document.getElementById('id_x').value = lat
+        document.getElementById('id_y').value = lon
         alert('Coordinates: ' + lat + ', ' + lon)
         console.log('Ready to send to PostGIS:', { latitude: lat, longitude: lon })
       })
