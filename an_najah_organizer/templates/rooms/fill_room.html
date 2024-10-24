@@ -5,259 +5,307 @@
 {% block content %}
 
 
-
-<div class="flex  items-center justify-center flex-col rounded-lg">
-    <div class="w-3/4 p-9 m-10 shadow-lg">
-
-        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-            <h1 class="md:w-1/3 w-full text-left">Current User</h1>
-            <div class="items-center justify-center w-3/4 max-md:w-full">
-                {{ user.username }}
-            </div>
+<div class="relative isolate px-6 pt-14 lg:px-8">
+    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+      <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="
+              clip-path: polygon(
+                  74.1% 44.1%,
+                  100% 61.6%,
+                  97.5% 26.9%,
+                  85.5% 0.1%,
+                  80.7% 2%,
+                  72.5% 32.5%,
+                  60.2% 62.4%,
+                  52.4% 68.1%,
+                  47.5% 58.3%,
+                  45.2% 34.5%,
+                  27.5% 76.7%,
+                  0.1% 64.9%,
+                  17.9% 100%,
+                  27.6% 76.8%,
+                  76.1% 97.7%,
+                  74.1% 44.1%
+              );
+              ">
         </div>
-        <div class="flex flex-wrap w-full space-x-4 space-y-4 ">
-                <form method="post" class="space-y-4 w-full" id="room_form" enctype="multipart/form-data">
-                    {% csrf_token %}
+    </div>
+    <div class="flex  items-center justify-center flex-col rounded-lg ">
+        <div class="w-3/4 p-9 m-10 shadow-2xl  rounded-lg">
 
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">Where Are You At?</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ buildings}}
-                        </div>
-                    </div>
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">{{floor_form.floor_number.label}}</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ floor_form.floor_number }}
-                        </div>
-                    </div>
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">{{room_form.room_number.label}}</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ room_form.room_number }}
-                        </div>
-                    </div>
-                    
-                    <div class="mt-5 mb-5">
-                        <hr>
-
-                        <h2 class="pt-10 pb-10"> Room Details</h2>
-                        <hr>
-
-                    </div>
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">Width</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ room_form.width }}
-                        </div>
-                    </div>
-                
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">Height</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ room_form.height }}
-                        </div>
-                    </div>
-                
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">Length</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ room_form.length }}
-                        </div>
-                    </div>
-
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">{{room_form.usage.label}}</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ room_form.usage }}
-                        </div>
-                    </div>
-                
-                    <div class="w-full  md:flex  items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.windows.label}}</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ detail_form.windows }}
-                        </div>
-                    </div>
-                
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.doors.label}}</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ detail_form.doors }}
-                        </div>
-                    </div>
-                
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.lcd.label}}</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ detail_form.lcd }}
-                        </div>
-                    </div>
-                
-                    <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                        <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.condition.label}}</label>
-                        <div class="items-center justify-center w-3/4 max-md:w-full">
-                            {{ detail_form.condition }}
-                        </div>
-                    </div>
-
-                    <div class="mt-5 mb-5 ">
-                        <hr>
-                        <div class="flex items-center">
-                            <h2 class="flex-auto pt-10 pb-10 self-start">Room Details</h2>
-                            <div class="flex-auto font-bold text-[#323235] justify-center items-center">
-                                <span onclick="createNewDetails()" class="border-2 items-center justify-center text-[#323235] text-2xl p-1 pr-3 pl-3  rounded-full shadow-lg cursor-pointer transition-all hover:scale-105">+</span>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    
-
-                    <div id="toggleDetails" class="space-y-4">
-                        <div id="details" class="space-y-4 hidden" >
-
-                        <div class="w-full  md:flex items-center justify-center space-y-4 md:space-x-4">
-                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.item.label}}</label>
-                            <div class="items-center justify-center w-3/4 max-md:w-full">
-                                {{ detail_form.item }}
-                            </div>
-                        </div>
-                    
-                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.amount.label}}</label>
-                            <div class="items-center justify-center w-3/4 max-md:w-full">
-                                {{ detail_form.amount }}
-                            </div>
-                        </div>
-                    
-                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.model.label}}</label>
-                            <div class="items-center justify-center w-3/4 max-md:w-full">
-                                {{ detail_form.model }}
-                            </div>
-                        </div>
-
-                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.attachments.label}}</label>
-                            <div class="items-center justify-center w-3/4 max-md:w-full">
-                                {{ detail_form.attachments }}
-                            </div>
-                        </div>
-
-                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.notes.label}}</label>
-                            <div class="items-center justify-center w-3/4 max-md:w-full">
-                                {{ detail_form.notes }}
-                            </div>
-                        </div>
-                    </div>
+            <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                <h1 class="md:w-1/3 w-full text-left">Current User</h1>
+                <div class="items-center justify-center w-3/4 max-md:w-full">
+                    {{ user.username }}
                 </div>
+            </div>
+            <div class="flex flex-wrap w-full space-x-4 space-y-4 ">
+                    <form method="post" class="space-y-4 w-full" id="room_form" enctype="multipart/form-data">
+                        {% csrf_token %}
 
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">Where Are You At?</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ buildings }}
+                            </div>
+                        </div>
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">{{floor_form.floor_number.label}}</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ floor_form.floor_number }}
+                            </div>
+                        </div>
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">{{room_form.room_number.label}}</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ room_form.room_number }}
+                            </div>
+                        </div>
+                        
+                        <div class="mt-5 mb-5">
+                            <hr>
 
+                            <h2 class="pt-10 pb-10"> Room Details</h2>
+                            <hr>
 
-                    <div class="mt-5 mb-5">
-                        <hr>
+                        </div>
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">Width</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ room_form.width }}
+                            </div>
+                        </div>
+                    
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">Height</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ room_form.height }}
+                            </div>
+                        </div>
+                    
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">Length</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ room_form.length }}
+                            </div>
+                        </div>
 
-                        <h2 class="pt-10 pb-10"> Room Images</h2>
-                        <hr>
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">{{room_form.usage.label}}</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ room_form.usage }}
+                            </div>
+                        </div>
+                    
+                        <div class="w-full  md:flex  items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.windows.label}}</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ detail_form.windows }}
+                            </div>
+                        </div>
+                    
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.doors.label}}</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ detail_form.doors }}
+                            </div>
+                        </div>
+                    
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.lcd.label}}</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ detail_form.lcd }}
+                            </div>
+                        </div>
+                    
+                        <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.condition.label}}</label>
+                            <div class="items-center justify-center w-3/4 max-md:w-full">
+                                {{ detail_form.condition }}
+                            </div>
+                        </div>
 
-                    </div>
- 
-                    <div class="bg-[#f1f1f1] rounded-lg shadow-lg transition-all">
-                        <div class="flex items-center justify-center w-full p-10">
-                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  hover:bg-gray-100 ">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                    </svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                        <div class="mt-5 mb-5 ">
+                            <hr>
+                            <div class="flex items-center">
+                                <h2 class="flex-auto pt-10 pb-10 self-start">Room Details</h2>
+                                <div class="flex-auto font-bold text-[#323235] justify-center items-center">
+                                    <span onclick="createNewDetails()" class="border-2 items-center justify-center text-[#323235] text-2xl p-1 pr-3 pl-3  rounded-full shadow-lg cursor-pointer transition-all hover:scale-105">+</span>
                                 </div>
-                                <input id="dropzone-file" multiple name="cs" type="file" class="hidden" />
-                            </label>
+                            </div>
+                            <hr>
                         </div>
+                        
 
-                        <div id="new_images" class="gap-5 flex flex-col items-center justify-center w-full p-10">
+                        <div id="toggleDetails" class="space-y-4">
+                            <div id="details" class="space-y-4 hidden" >
 
+                            <div class="w-full  md:flex items-center justify-center space-y-4 md:space-x-4">
+                                <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.item.label}}</label>
+                                <div class="items-center justify-center w-3/4 max-md:w-full">
+                                    {{ detail_form.item }}
+                                </div>
+                            </div>
+                        
+                            <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                                <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.amount.label}}</label>
+                                <div class="items-center justify-center w-3/4 max-md:w-full">
+                                    {{ detail_form.amount }}
+                                </div>
+                            </div>
+                        
+                            <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                                <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.model.label}}</label>
+                                <div class="items-center justify-center w-3/4 max-md:w-full">
+                                    {{ detail_form.model }}
+                                </div>
+                            </div>
+
+                            <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                                <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.attachments.label}}</label>
+                                <div class="items-center justify-center w-3/4 max-md:w-full">
+                                    {{ detail_form.attachments }}
+                                </div>
+                            </div>
+
+                            <div class="w-full  md:flex items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                                <label for="id_width" class="md:w-1/3 w-full text-left">{{detail_form.notes.label}}</label>
+                                <div class="items-center justify-center w-3/4 max-md:w-full">
+                                    {{ detail_form.notes }}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="text-right">
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
-                    </div>
 
-                </form>
+
+                        <div class="mt-5 mb-5">
+                            <hr>
+
+                            <h2 class="pt-10 pb-10"> Room Images</h2>
+                            <hr>
+
+                        </div>
+    
+                        <div class="bg-[#f1f1f1] rounded-lg shadow-lg transition-all">
+                            <div class="flex items-center justify-center w-full p-10">
+                                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  hover:bg-gray-100 ">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                        </svg>
+                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                    </div>
+                                    <input id="dropzone-file" multiple name="cs" type="file" class="hidden" />
+                                </label>
+                            </div>
+
+                            <div id="new_images" class="gap-5 flex flex-col items-center justify-center w-full p-10">
+
+                            </div>
+                        </div>
+
+                        <div class="text-right">
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+                        </div>
+
+                        {% include "maps/map.html" %}
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
+        <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="
+                clip-path: polygon(
+                    74.1% 44.1%,
+                    100% 61.6%,
+                    97.5% 26.9%,
+                    85.5% 0.1%,
+                    80.7% 2%,
+                    72.5% 32.5%,
+                    60.2% 62.4%,
+                    52.4% 68.1%,
+                    47.5% 58.3%,
+                    45.2% 34.5%,
+                    27.5% 76.7%,
+                    0.1% 64.9%,
+                    17.9% 100%,
+                    27.6% 76.8%,
+                    76.1% 97.7%,
+                    74.1% 44.1%
+                );
+                "></div>
+      </div>
 </div>
 
-    <script>
-        document.getElementById('dropzone-file').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-        
-                    const fileContainer = document.createElement('div');
-                    fileContainer.innerHTML = `
-                        <div id=${file.name} class="relative w-full bg-white px-6 pb-8 pt-10 shadow-xl ring-1 ring-gray-900/5 rounded-lg px-10">
-                            <div class="mx-auto flex max-w-md justify-between">
-                                <div class="flex mt-4 max-md:flex-col">
-                                    <img src=${e.target.result} class="bg-slate-300  shadow-2xl w-40 h-40 rounded-md self-center" alt="Tailwind Play" />
-                                    <div class="flex ml-2 max-w-[3/4] flex-col break-all justify-center text-[#323235] leading-6">
-                                        <h1>${file.name}</h1>
-                                        <h1 class="font-mono">${(file.size)/1000000} MB</h1>
-                                    </div>
+<script>
+    document.getElementById('dropzone-file').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+    
+                const fileContainer = document.createElement('div');
+                fileContainer.innerHTML = `
+                    <div id=${file.name} class="relative w-full bg-white px-6 pb-8 pt-10 shadow-xl ring-1 ring-gray-900/5 rounded-lg px-10">
+                        <div class="mx-auto flex max-w-md justify-between">
+                            <div class="flex mt-4 max-md:flex-col">
+                                <img src=${e.target.result} class="bg-slate-300  shadow-2xl w-40 h-40 rounded-md self-center" alt="Tailwind Play" />
+                                <div class="flex ml-2 max-w-[3/4] flex-col break-all justify-center text-[#323235] leading-6">
+                                    <h1>${file.name}</h1>
+                                    <h1 class="font-mono">${(file.size)/1000000} MB</h1>
                                 </div>
-                                <div onclick="deleteImage('${file.name}')" class="absolute right-4 top-4 flex cursor-pointer rounded-full bg-slate-300 p-1 pl-3 pr-3 text-lg transition-all hover:scale-105 hover:text-red-600">X</div>
                             </div>
+                            <div onclick="deleteImage('${file.name}')" class="absolute right-4 top-4 flex cursor-pointer rounded-full bg-slate-300 p-1 pl-3 pr-3 text-lg transition-all hover:scale-105 hover:text-red-600">X</div>
                         </div>
-                    `;
-                    document.getElementById('new_images').appendChild(fileContainer);
+                    </div>
+                `;
+                document.getElementById('new_images').appendChild(fileContainer);
 
-                    const hiddenInput = document.createElement('input');
-                    hiddenInput.type = 'file';
-                    hiddenInput.name = 'room_image';
-                    hiddenInput.multiple = true; // Allow multiple files
-                    hiddenInput.click();
-                    document.getElementById('room_form').appendChild(hiddenInput);
-
-                }
-                reader.readAsDataURL(file);
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'file';
+                hiddenInput.name = 'room_image';
+                hiddenInput.multiple = true; // Allow multiple files
+                hiddenInput.click();
+                document.getElementById('room_form').appendChild(hiddenInput);
 
             }
-        });
-
-        function deleteImage(imageId){
-            const imageUI = document.getElementById(imageId);
-            if(imageId) {
-                imageUI.remove();
-                const hiddenInput = document.querySelector(`input[name="room_image"][value="${imageId}"]`);
-                if(hiddenInput) {
-                    hiddenInput.remove();
-                }
-            }
-
-        };
-
-        function createNewDetails(){
-            const roomDetails = document.getElementById('details');
-            if(roomDetails.style.display === 'hidden') {
-                roomDetails.style.display = 'block';
-
-            }else {
-                const detailsContainer = document.getElementById('toggleDetails'); 
-                
-                const children = roomDetails.children;
-
-                for (let i = 0; i < children.length; i++) {
-                    detailsContainer.appendChild(children[i].cloneNode(true));
-                }
-            }
+            reader.readAsDataURL(file);
 
         }
-    </script>
+    });
+
+    function deleteImage(imageId){
+        const imageUI = document.getElementById(imageId);
+        if(imageId) {
+            imageUI.remove();
+            const hiddenInput = document.querySelector(`input[name="room_image"][value="${imageId}"]`);
+            if(hiddenInput) {
+                hiddenInput.remove();
+            }
+        }
+
+    };
+
+    function createNewDetails(){
+        const roomDetails = document.getElementById('details');
+        if(roomDetails.style.display === 'hidden') {
+            roomDetails.style.display = 'block';
+
+        }else {
+            const detailsContainer = document.getElementById('toggleDetails'); 
+            
+            const children = roomDetails.children;
+
+            for (let i = 0; i < children.length; i++) {
+                detailsContainer.appendChild(children[i].cloneNode(true));
+            }
+        }
+
+    }
+</script>
 {% endblock %}
 
 <!--

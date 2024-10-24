@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaflet Map with Shapefile/DXF Upload</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/shpjs@3.4.1/dist/shp.min.js"></script>
+    <script src="https://unpkg.com/dxf-parser@1.4.0/dist/dxf-parser.min.js"></script>
+    <style>
+      #map {
+        width: 100%;
+        height: 100vh;
+      }
+      
+      /* Styling the file upload input to look like a button */
+      .file-input-container {
+        margin: 10px;
+      }
+      
+      .custom-file-upload {
+        display: inline-block;
+        padding: 10px 20px;
+        cursor: pointer;
+        background-color: #4caf50;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+      }
+      
+      input[type='file'] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="file-input-container">
+      <!-- Styled file input button -->
+      <label for="fileInput" class="custom-file-upload">Choose File (Shapefile or DXF .ZIP)</label>
+      <input type="file" id="fileInput" accept=".zip,.dxf" />
+    </div>
+    <div id="map"></div>
+
+    <script>
+      // Initialize the map, centered on An-Najah University
+      var map = L.map('map').setView([32.227866, 35.222066], 16) // Centered near the bounding box
+      
+      // Add OpenStreetMap tile layer
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 22, // Increase max zoom level to allow more zooming
+        minZoom: 1, // Allow zooming out more if needed
+        attribution: '© OpenStreetMap'
+      }).addTo(map)
+      
+      // Define the updated bounding box using the provided coordinates and extending by 300 meters
+      var bounds = [
+        [32.22910713721199 + 0.0027, 35.22503793239594 + 0.0035], // Upper corner extended by 300 meters
+        [32.22662488235642 - 0.0027, 35.21909415721894 - 0.0035] // Lower corner extended by 300 meters
+      ]
+      
+      // Draw rectangle for the bounding box
+      L.rectangle(bounds, { color: '#ff7800', weight: 1 }).addTo(map)
+      map.fitBounds(bounds)
+      
+      // Handle file input change event to load shapefile or DXF file
+      document.getElementById('fileInput').addEventListener('change', function (event) {
+        var file = event.target.files[0] // Get the selected file
+        if (file) {
+          if (file.name.endsWith('.zip')) {
+            // Handle shapefile upload
+            var reader = new FileReader()
+            reader.onload = function (e) {
+              var arrayBuffer = e.target.result // Read the file as an array buffer
+              shp(arrayBuffer).then(function (geojson) {
+                L.geoJSON(geojson).addTo(map) // Add the GeoJSON to the map
+              })
+            }
+            reader.readAsArrayBuffer(file) // Read the shapefile as an ArrayBuffer
+          } else if (file.name.endsWith('.dxf')) {
+            // Handle DXF file upload
+            var reader = new FileReader()
+            reader.onload = function (e) {
+              var content = e.target.result // Read the DXF file as text
+              var parser = new DxfParser()
+              var dxf = parser.parseSync(content) // Parse the DXF
+      
+              // Convert DXF entities to GeoJSON and add to the map
+              dxf.entities.forEach((entity) => {
+                if (entity.type === 'LINE' || entity.type === 'POLYLINE' || entity.type === 'LWPOLYLINE') {
+                  var latLngs = entity.vertices.map((vertex) => [vertex.y, vertex.x]) // Convert to Leaflet latLng format
+                  L.polyline(latLngs, { color: 'blue' }).addTo(map)
+                }
+              })
+            }
+            reader.readAsText(file) // Read the DXF file as text
+          }
+        }
+      })
+      
+      // Add click event to extract coordinates
+      map.on('click', function (e) {
+        var lat = e.latlng.lat
+        var lon = e.latlng.lng
+        alert('Coordinates: ' + lat + ', ' + lon)
+        console.log('Ready to send to PostGIS:', { latitude: lat, longitude: lon })
+      })
+    </script>
+  </body>
+</html>
